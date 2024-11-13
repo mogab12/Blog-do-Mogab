@@ -8,8 +8,22 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
 from .models import Post, Comment
-from .forms import PostForm
+from .forms import PostForm, CommentForm, UserRegistrationForm
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Loga o usuário automaticamente após o cadastro
+            messages.success(request, 'Cadastro realizado com sucesso!')
+            return redirect('lista_posts')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'accounts/register.html', {'form': form})
 
 class ListaPostsView(ListView):
     model = Post
@@ -24,28 +38,29 @@ class DetalhePostView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comentarios'] = self.object.comentarios.all()
+        context['comentarios'] = self.object.comentarios.all().order_by('-data_postagem')
+        context['form_comentario'] = CommentForm()
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        
+        # Verifica se o usuário está autenticado
         if not request.user.is_authenticated:
-            messages.error(request, 'Você precisa estar logado para comentar.')
-            return self.get(request, *args, **kwargs)
-        
-        texto = request.POST.get('texto')
-        if texto:
-            Comment.objects.create(
-                post=self.object,
-                autor=request.user,
-                texto=texto
-            )
-            messages.success(request, 'Comentário adicionado com sucesso!')
-        else:
-            messages.error(request, 'O comentário não pode estar vazio.')
-        
-        return self.get(request, *args, **kwargs)
+            return redirect('login')  # Redireciona para página de login
+
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.autor = request.user
+            comentario.post = self.object
+            comentario.save()
+            return redirect('detalhe_post', pk=self.object.pk)
+
+        # Se o formulário for inválido, renderiza novamente a página
+        context = self.get_context_data()
+        context['form_comentario'] = form
+        return self.render_to_response(context)
 
 class CriarPostView(LoginRequiredMixin, CreateView):
     model = Post
@@ -53,14 +68,28 @@ class CriarPostView(LoginRequiredMixin, CreateView):
     template_name = 'blog/criar_post.html'
     success_url = reverse_lazy('lista_posts')
 
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
 class EditarPostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/editar_post.html'
     success_url = reverse_lazy('lista_posts')
 
+    def get_queryset(self):
+        # Permite edição apenas para o autor do post
+        qs = super().get_queryset()
+        return qs.filter(autor=self.request.user)
+
 class RemoverPostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/remover_post.html'
     success_url = reverse_lazy('lista_posts')
     context_object_name = 'post'
+
+    def get_queryset(self):
+        # Permite remoção apenas para o autor do post
+        qs = super().get_queryset()
+        return qs.filter(autor=self.request.user)

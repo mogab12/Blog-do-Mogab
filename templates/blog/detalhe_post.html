@@ -15,16 +15,18 @@
         </div>
 
         <div class="post-content">
-            {{ post.conteudo|linebreaks }}
+            {{ post.conteudo|linebreaks|safe }}
         </div>
 
         <div class="post-actions mt-4">
+            {% if user == post.autor %}
             <a href="{% url 'editar_post' post.pk %}" class="btn btn-vintage me-2">
                 Editar Post
             </a>
             <a href="{% url 'remover_post' post.pk %}" class="btn btn-danger">
                 Remover Post
             </a>
+            {% endif %}
             <a href="{% url 'lista_posts' %}" class="btn btn-secondary ms-2">
                 Voltar para Lista
             </a>
@@ -36,9 +38,7 @@
             {% if user.is_authenticated %}
             <form method="post" class="mb-4">
                 {% csrf_token %}
-                <div class="form-group">
-                    <textarea name="texto" class="form-control" rows="3" placeholder="Deixe seu comentário"></textarea>
-                </div>
+                {% bootstrap_form form_comentario %}
                 <button type="submit" class="btn btn-vintage mt-2">Enviar Comentário</button>
             </form>
             {% else %}

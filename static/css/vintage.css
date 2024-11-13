@@ -61,6 +61,23 @@ body {
 .nav-link {
     color: #F7EDE2 !important;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    background-color: #6B5B4C;
+    border: none;
+}
+
+.dropdown-item {
+    color: #F7EDE2 !important;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #A47551;
+    color: #FFFFFF !important;
 }
 
 .vintage-form .form-control {
