@@ -3,11 +3,30 @@
 {% block titulo %}{{ post.titulo }}{% endblock %}
 
 {% block conteudo %}
-    <h2>{{ post.titulo }}</h2>
-    <p>Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}</p>
-    <div>{{ post.conteudo|safe }}</div>
-    
-    <a href="{% url 'editar_post' post.pk %}">Editar</a>
-    <a href="{% url 'remover_post' post.pk %}">Remover</a>
-    <a href="{% url 'lista_posts' %}">Voltar</a>
+    <div class="blog-post-detail">
+        <h1 class="blog-title mb-4">{{ post.titulo }}</h1>
+        
+        <div class="post-meta mb-4">
+            <p class="text-muted">
+                <i class="fas fa-calendar-alt"></i> 
+                Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}
+            </p>
+        </div>
+
+        <div class="post-content">
+            {{ post.conteudo|safe }}
+        </div>
+
+        <div class="post-actions mt-4">
+            <a href="{% url 'editar_post' post.pk %}" class="btn btn-vintage me-2">
+                Editar Post
+            </a>
+            <a href="{% url 'remover_post' post.pk %}" class="btn btn-danger">
+                Remover Post
+            </a>
+            <a href="{% url 'lista_posts' %}" class="btn btn-secondary ms-2">
+                Voltar para Lista
+            </a>
+        </div>
+    </div>
 {% endblock %}

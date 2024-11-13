@@ -1,21 +1,29 @@
 {% extends 'base/base.html' %}
 
-{% block titulo %}Lista de Posts{% endblock %}
+{% block titulo %}Posts{% endblock %}
 
 {% block conteudo %}
-    <h2>Posts</h2>
-    <a href="{% url 'criar_post' %}">Novo Post</a>
+    <h1 class="blog-title mb-4">Últimos Posts</h1>
     
-    {% if posts %}
-        <ul>
-            {% for post in posts %}
-                <li>
-                    <a href="{% url 'detalhe_post' post.pk %}">{{ post.titulo }}</a>
-                    <small>{{ post.data_postagem|date:"d/m/Y H:i" }}</small>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum post encontrado.</p>
-    {% endif %}
-{% endblock %}  
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-12">
+                <div class="blog-post-card">
+                    <h2 class="h4">{{ post.titulo }}</h2>
+                    <p class="text-muted">
+                        Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}
+                    </p>
+                    <a href="{% url 'detalhe_post' post.pk %}" class="btn btn-vintage">
+                        Ler Mais
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhum post encontrado.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'criar_post' %}" class="btn btn-vintage mt-3">
+        Criar Novo Post
+    </a>
+{% endblock %}

@@ -3,11 +3,26 @@
 {% block titulo %}Remover Post{% endblock %}
 
 {% block conteudo %}
-    <h2>Confirmar Remoção</h2>
-    <p>Tem certeza que deseja remover o post "{{ post.titulo }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confirmar Remoção</button>
-    </form>
-    <a href="{% url 'lista_posts' %}">Cancelar</a>
+    <div class="delete-confirmation">
+        <h1 class="blog-title mb-4">Confirmar Remoção</h1>
+        
+        <div class="alert alert-danger" role="alert">
+            <h4>Tem certeza que deseja remover o post?</h4>
+            <p><strong>Título:</strong> {{ post.titulo }}</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-danger me-2">
+                        Confirmar Remoção
+                    </button>
+                    <a href="{% url 'lista_posts' %}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

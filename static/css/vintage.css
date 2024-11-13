@@ -1,0 +1,82 @@
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #F7EDE2;
+    color: #4A4238;
+    line-height: 1.6;
+}
+
+.blog-container {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.blog-post-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2D1C3;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.blog-post-card:hover {
+    box-shadow: 0 6px 12px rgba(74,66,56,0.1);
+    transform: translateY(-5px);
+}
+
+.blog-title {
+    color: #A47551;
+    font-weight: 700;
+    border-bottom: 2px solid #A47551;
+    padding-bottom: 10px;
+}
+
+.btn-vintage {
+    background-color: #A47551;
+    color: #FFFFFF;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-vintage:hover {
+    background-color: #6B5B4C;
+    color: #FFFFFF;
+}
+
+.navbar {
+    background-color: #6B5B4C;
+}
+
+.navbar-brand {
+    color: #F7EDE2 !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #F7EDE2 !important;
+}
+
+
+.vintage-form .form-control {
+    background-color: #FFFFFF;
+    border: 1px solid #E2D1C3;
+    color: #4A4238;
+}
+
+.vintage-form .form-control:focus {
+    border-color: #A47551;
+    box-shadow: 0 0 0 0.2rem rgba(164, 117, 81, 0.25);
+}
+
+.post-content {
+    line-height: 1.8;
+    color: #4A4238;
+}
+
+.post-meta {
+    border-bottom: 1px solid #E2D1C3;
+    padding-bottom: 10px;
+}
