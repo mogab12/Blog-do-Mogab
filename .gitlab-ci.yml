@@ -1,12 +1,11 @@
-image: python:3.9
-
-stages:
-  - deploy
-
-deploy:
-  stage: deploy
-  script:
-    - pip install -r requirements.txt
-    - pip install gunicorn
-  only:
-    - master
+image: alpine:latest
+pages:
+ script:
+   - mkdir .public
+   - cp -r * .public
+   - mv .public public
+ artifacts:
+   paths:
+     - public
+ only:
+   - master
