@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Posts</title>
+</head>
+<body>
+    <h1>Posts</h1>
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    Título: {{ post.titulo }} 
+                    <br>Data: {{ post.data_postagem|date:"d/m/Y H:i" }}
+                    <br>Conteúdo: {{ post.conteudo|safe|truncatewords:10 }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum post encontrado.</p>
+    {% endif %}
+</body>
+</html>
