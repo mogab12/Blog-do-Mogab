@@ -9,12 +9,12 @@
         {% for categoria in categorias %}
             <div class="col-md-12">
                 <div class="blog-post-card mb-4">
-                    <h2 class="h4">{{ categoria.nome }}</h2>
-                    <p class="text-muted">
+                    <h2 class="h4" style="color: #A47551;"><strong>{{ categoria.nome }}</strong></h2>
+                    <p class="categoria-descricao">
                         {{ categoria.descricao }}
                     </p>
                     <div class="categoria-info mb-2">
-                        <span class="badge bg-vintage">
+                        <span class="badge-vintage-count">
                             {{ categoria.posts.count }} Post(s)
                         </span>
                     </div>
@@ -35,4 +35,21 @@
         </a>
     </div>
     {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .categoria-descricao {
+        color: #4A4238;
+        margin-bottom: 15px;
+    }
+
+    .badge-vintage-count {
+        background-color: #E2D1C3;
+        color: #4A4238;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+</style>
 {% endblock %}

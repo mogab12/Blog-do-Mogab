@@ -17,7 +17,7 @@
             <div class="categorias mt-2">
                 <strong>Categorias:</strong>
                 {% for categoria in post.categorias.all %}
-                <a href="{% url 'detalhe_categoria' categoria.pk %}" class="badge bg-vintage me-2">
+                <a href="{% url 'detalhe_categoria' categoria.pk %}">
                     {{ categoria.nome }}
                 </a>
                 {% endfor %}

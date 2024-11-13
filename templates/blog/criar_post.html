@@ -15,7 +15,21 @@
         
         <div class="row">
             <div class="col-md-12">
-                {% bootstrap_form form %}
+                {% bootstrap_form form exclude='categorias' %}
+                
+                <div class="form-group mt-3">
+                    <label class="form-label">Categorias</label>
+                    <div class="category-checkboxes">
+                        {% for categoria in form.categorias %}
+                            <div class="form-check">
+                                {{ categoria.tag }}
+                                <label class="form-check-label" for="{{ categoria.id_for_label }}">
+                                    {{ categoria.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -30,4 +44,17 @@
             </div>
         </div>
     </form>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .category-checkboxes .form-check {
+        margin-right: 15px;
+    }
+</style>
 {% endblock %}

@@ -103,6 +103,7 @@ class DetalheCategoriaView(ListView):
     model = Post
     template_name = 'blog/lista_posts.html'
     context_object_name = 'posts'
+    ordering = ['-data_postagem'] 
 
     def get_queryset(self):
         categoria = get_object_or_404(Category, pk=self.kwargs['pk'])

@@ -103,3 +103,21 @@ body {
     padding-bottom: 10px;
     font-size: 0.95rem;
 }
+.categorias {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categorias a {
+    color: #4A4238;  
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.categorias a:hover {
+    background-color: #A47551;
+    color: #FFFFFF;
+}

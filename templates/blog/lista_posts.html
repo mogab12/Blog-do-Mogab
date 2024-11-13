@@ -9,9 +9,9 @@
     <h1 class="blog-title mb-4">Últimos Posts</h1>
     {% endif %}
     
-    {% if categoria %}
-    <div class="alert alert-info mb-4">
-        {{ categoria.descricao }}
+    {% if categoria and categoria.descricao %}
+    <div class="categoria-descricao mb-4">
+        <p class="post-content">{{ categoria.descricao }}</p>
     </div>
     {% endif %}
     
@@ -19,7 +19,9 @@
         {% for post in posts %}
             <div class="col-md-12">
                 <div class="blog-post-card mb-4">
-                    <h2 class="h4">{{ post.titulo }}</h2>
+                    <h2 class="h4">
+                        <strong style="color: #A47551;">{{ post.titulo }}</strong>
+                    </h2>
                     <p class="text-muted">
                         Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}
                     </p>
@@ -27,7 +29,7 @@
                     {% if post.categorias.all %}
                     <div class="categorias mb-2">
                         {% for categoria in post.categorias.all %}
-                        <a href="{% url 'detalhe_categoria' categoria.pk %}" class="badge bg-vintage me-2">
+                        <a href="{% url 'detalhe_categoria' categoria.pk %}" class="badge-vintage-count me-2">
                             {{ categoria.nome }}
                         </a>
                         {% endfor %}
@@ -52,4 +54,29 @@
             Ver Categorias
         </a>
     </div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .categoria-descricao {
+        color: #4A4238;
+        border-bottom: 1px solid #E2D1C3;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .badge-vintage-count {
+        background-color: #E2D1C3;
+        color: #4A4238;
+        padding: 3px 8px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .badge-vintage-count:hover {
+        background-color: #A47551;
+        color: #FFFFFF;
+    }
+</style>
 {% endblock %}
