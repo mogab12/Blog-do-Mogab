@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load django_bootstrap5 %}
 
 {% block titulo %}{{ post.titulo }}{% endblock %}
 
@@ -27,6 +28,36 @@
             <a href="{% url 'lista_posts' %}" class="btn btn-secondary ms-2">
                 Voltar para Lista
             </a>
+        </div>
+
+        <div class="comentarios mt-5">
+            <h3>Comentários ({{ comentarios.count }})</h3>
+            
+            {% if user.is_authenticated %}
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="texto" class="form-control" rows="3" placeholder="Deixe seu comentário"></textarea>
+                </div>
+                <button type="submit" class="btn btn-vintage mt-2">Enviar Comentário</button>
+            </form>
+            {% else %}
+            <p>Faça <a href="{% url 'login' %}">login</a> para comentar.</p>
+            {% endif %}
+
+            {% for comentario in comentarios %}
+                <div class="comentario card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comentario.autor.username }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ comentario.data_postagem|date:"d/m/Y H:i" }}
+                        </h6>
+                        <p class="card-text">{{ comentario.texto }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Nenhum comentário ainda. Seja o primeiro a comentar!</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

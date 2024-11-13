@@ -13,4 +13,5 @@ urlpatterns = [
     path('post/criar/', CriarPostView.as_view(), name='criar_post'),
     path('post/<int:pk>/editar/', EditarPostView.as_view(), name='editar_post'),
     path('post/<int:pk>/remover/', RemoverPostView.as_view(), name='remover_post'),
+    
 ]
