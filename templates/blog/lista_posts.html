@@ -3,16 +3,37 @@
 {% block titulo %}Posts{% endblock %}
 
 {% block conteudo %}
+    {% if categoria %}
+    <h1 class="blog-title mb-4">Posts na Categoria: {{ categoria.nome }}</h1>
+    {% else %}
     <h1 class="blog-title mb-4">Últimos Posts</h1>
+    {% endif %}
+    
+    {% if categoria %}
+    <div class="alert alert-info mb-4">
+        {{ categoria.descricao }}
+    </div>
+    {% endif %}
     
     <div class="row">
         {% for post in posts %}
             <div class="col-md-12">
-                <div class="blog-post-card">
+                <div class="blog-post-card mb-4">
                     <h2 class="h4">{{ post.titulo }}</h2>
                     <p class="text-muted">
                         Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}
                     </p>
+
+                    {% if post.categorias.all %}
+                    <div class="categorias mb-2">
+                        {% for categoria in post.categorias.all %}
+                        <a href="{% url 'detalhe_categoria' categoria.pk %}" class="badge bg-vintage me-2">
+                            {{ categoria.nome }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     <a href="{% url 'detalhe_post' post.pk %}" class="btn btn-vintage">
                         Ler Mais
                     </a>
@@ -23,7 +44,12 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'criar_post' %}" class="btn btn-vintage mt-3">
-        Criar Novo Post
-    </a>
+    <div class="actions mt-3">
+        <a href="{% url 'criar_post' %}" class="btn btn-vintage me-2">
+            Criar Novo Post
+        </a>
+        <a href="{% url 'lista_categorias' %}" class="btn btn-secondary">
+            Ver Categorias
+        </a>
+    </div>
 {% endblock %}

@@ -12,6 +12,17 @@
                 <i class="fas fa-calendar-alt"></i> 
                 Publicado em: {{ post.data_postagem|date:"d/m/Y H:i" }}
             </p>
+            
+            {% if post.categorias.all %}
+            <div class="categorias mt-2">
+                <strong>Categorias:</strong>
+                {% for categoria in post.categorias.all %}
+                <a href="{% url 'detalhe_categoria' categoria.pk %}" class="badge bg-vintage me-2">
+                    {{ categoria.nome }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <div class="post-content">

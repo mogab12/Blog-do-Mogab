@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}Categorias{% endblock %}
+
+{% block conteudo %}
+    <h1 class="blog-title mb-4">Categorias</h1>
+    
+    <div class="row">
+        {% for categoria in categorias %}
+            <div class="col-md-12">
+                <div class="blog-post-card mb-4">
+                    <h2 class="h4">{{ categoria.nome }}</h2>
+                    <p class="text-muted">
+                        {{ categoria.descricao }}
+                    </p>
+                    <div class="categoria-info mb-2">
+                        <span class="badge bg-vintage">
+                            {{ categoria.posts.count }} Post(s)
+                        </span>
+                    </div>
+                    <a href="{% url 'detalhe_categoria' categoria.pk %}" class="btn btn-vintage">
+                        Ver Posts
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhuma categoria encontrada.</p>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="actions mt-3">
+        <a href="{% url 'criar_post' %}" class="btn btn-vintage">
+            Criar Novo Post
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -8,9 +8,9 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm, UserRegistrationForm
 
 def register(request):
@@ -93,3 +93,22 @@ class RemoverPostView(LoginRequiredMixin, DeleteView):
         # Permite remoção apenas para o autor do post
         qs = super().get_queryset()
         return qs.filter(autor=self.request.user)
+
+class ListaCategoriasView(ListView):
+    model = Category
+    template_name = 'blog/lista_categorias.html'
+    context_object_name = 'categorias'
+
+class DetalheCategoriaView(ListView):
+    model = Post
+    template_name = 'blog/lista_posts.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        categoria = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return categoria.posts.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categoria'] = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return context
