@@ -1,0 +1,123 @@
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #F7EDE2;
+    color: #4A4238;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.blog-container {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.blog-post-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2D1C3;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.blog-post-card:hover {
+    box-shadow: 0 6px 12px rgba(74,66,56,0.1);
+    transform: translateY(-5px);
+}
+
+.blog-title {
+    color: #A47551;
+    font-weight: 700;
+    border-bottom: 2px solid #A47551;
+    padding-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+.btn-vintage {
+    background-color: #A47551;
+    color: #FFFFFF;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-vintage:hover {
+    background-color: #6B5B4C;
+    color: #FFFFFF;
+}
+
+.navbar {
+    background-color: #6B5B4C;
+}
+
+.navbar-brand {
+    color: #F7EDE2 !important;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    color: #F7EDE2 !important;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    background-color: #6B5B4C;
+    border: none;
+}
+
+.dropdown-item {
+    color: #F7EDE2 !important;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #A47551;
+    color: #FFFFFF !important;
+}
+
+.vintage-form .form-control {
+    background-color: #FFFFFF;
+    border: 1px solid #E2D1C3;
+    color: #4A4238;
+    font-size: 1rem;
+}
+
+.vintage-form .form-control:focus {
+    border-color: #A47551;
+    box-shadow: 0 0 0 0.2rem rgba(164, 117, 81, 0.25);
+}
+
+.post-content {
+    line-height: 1.9;
+    color: #4A4238;
+    font-size: 1.1rem;
+}
+
+.post-meta {
+    border-bottom: 1px solid #E2D1C3;
+    padding-bottom: 10px;
+    font-size: 0.95rem;
+}
+.categorias {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categorias a {
+    color: #4A4238;  
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.categorias a:hover {
+    background-color: #A47551;
+    color: #FFFFFF;
+}
