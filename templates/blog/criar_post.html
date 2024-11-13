@@ -1,9 +1,9 @@
 {% extends 'base/base.html' %}
 
-{% block titulo %}Criar Post{% endblock %}
+{% block titulo %}{% if form.instance.pk %}Editar{% else %}Criar{% endif %} Post{% endblock %}
 
 {% block conteudo %}
-    <h2>Criar Novo Post</h2>
+    <h2>{% if form.instance.pk %}Editar{% else %}Criar{% endif %} Post</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

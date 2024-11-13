@@ -1,54 +1,39 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
+from django.views.generic import (
+    ListView, 
+    DetailView, 
+    CreateView, 
+    UpdateView, 
+    DeleteView
+)
+from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
 
-def lista_posts(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/lista_posts.html', {'posts': posts})
+class ListaPostsView(ListView):
+    model = Post
+    template_name = 'blog/lista_posts.html'
+    context_object_name = 'posts'
+    ordering = ['-data_postagem']
 
-def detalhe_post(request, pk):
-    try:
-        post = get_object_or_404(Post, pk=pk)
-        return render(request, 'blog/detalhe_post.html', {'post': post})
-    except Post.DoesNotExist:
-        raise Http404("Post não encontrado")
+class DetalhePostView(DetailView):
+    model = Post
+    template_name = 'blog/detalhe_post.html'
+    context_object_name = 'post'
 
-def criar_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_posts')
-    else:
-        form = PostForm()
-    
-    return render(request, 'blog/criar_post.html', {'form': form})
+class CriarPostView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/criar_post.html'
+    success_url = reverse_lazy('lista_posts')
 
-def editar_post(request, pk):
-    try:
-        post = get_object_or_404(Post, pk=pk)
-        
-        if request.method == 'POST':
-            form = PostForm(request.POST, instance=post)
-            if form.is_valid():
-                form.save()
-                return redirect('lista_posts')
-        else:
-            form = PostForm(instance=post)
-        
-        return render(request, 'blog/editar_post.html', {'form': form, 'post': post})
-    except Post.DoesNotExist:
-        raise Http404("Post não encontrado")
+class EditarPostView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/editar_post.html'
+    success_url = reverse_lazy('lista_posts')
 
-def remover_post(request, pk):
-    try:
-        post = get_object_or_404(Post, pk=pk)
-        
-        if request.method == 'POST':
-            post.delete()
-            return redirect('lista_posts')
-        
-        return render(request, 'blog/remover_post.html', {'post': post})
-    except Post.DoesNotExist:
-        raise Http404("Post não encontrado")
+class RemoverPostView(DeleteView):
+    model = Post
+    template_name = 'blog/remover_post.html'
+    success_url = reverse_lazy('lista_posts')
+    context_object_name = 'post'
