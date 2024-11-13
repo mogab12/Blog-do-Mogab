@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Posts</title>
-</head>
-<body>
-    <h1>Posts</h1>
+{% extends 'base/base.html' %}
+
+{% block titulo %}Lista de Posts{% endblock %}
+
+{% block conteudo %}
+    <h2>Posts</h2>
     {% if posts %}
         <ul>
             {% for post in posts %}
                 <li>
-                    Título: {{ post.titulo }} 
-                    <br>Data: {{ post.data_postagem|date:"d/m/Y H:i" }}
-                    <br>Conteúdo: {{ post.conteudo|safe|truncatewords:10 }}
+                    <a href="#">{{ post.titulo }}</a>
+                    <small>{{ post.data_postagem|date:"d/m/Y H:i" }}</small>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
         <p>Nenhum post encontrado.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

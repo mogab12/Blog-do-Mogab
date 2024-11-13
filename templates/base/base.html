@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Blog Django{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Meu Blog</h1>
+        <nav>
+            <a href="{% url 'lista_posts' %}">Início</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Meu Blog Django</p>
+    </footer>
+</body>
+</html>
