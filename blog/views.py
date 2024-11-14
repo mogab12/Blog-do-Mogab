@@ -78,21 +78,11 @@ class EditarPostView(LoginRequiredMixin, UpdateView):
     template_name = 'blog/editar_post.html'
     success_url = reverse_lazy('lista_posts')
 
-    def get_queryset(self):
-        # Permite edição apenas para o autor do post
-        qs = super().get_queryset()
-        return qs.filter(autor=self.request.user)
-
 class RemoverPostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/remover_post.html'
     success_url = reverse_lazy('lista_posts')
     context_object_name = 'post'
-
-    def get_queryset(self):
-        # Permite remoção apenas para o autor do post
-        qs = super().get_queryset()
-        return qs.filter(autor=self.request.user)
 
 class ListaCategoriasView(ListView):
     model = Category
